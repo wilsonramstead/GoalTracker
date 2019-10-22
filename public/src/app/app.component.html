@@ -1,6 +1,7 @@
 
 <div class="mainContainer">
-  <app-calendar></app-calendar>
+  <app-calendar *ngIf="page === 'Calendar'" (navLink)="showPage($event)"></app-calendar>
+  <app-my-goals *ngIf="page === 'Goals'" (navLink)="showPage($event)"></app-my-goals>
 </div>
 
 <router-outlet></router-outlet>

@@ -8,24 +8,23 @@ import * as $ from 'jquery';
 })
 export class AppComponent implements OnInit {
 
+  page: any;
+
   ngOnInit() {
     this.backgroundColor();
+    this.page = 'Calendar';
   }
-
-
-
-
-
+  showPage(string) {
+    this.page = string;
+  }
   backgroundColor() {
     $(document).ready(function() {
       $(".mainContainer").mousemove(function(event) {
         this.wrapperWidth = $(".mainContainer").width();
         this.wrapperHeight = $(".mainContainer").height();
         this.mouseXpercentage = Math.round(event.pageX / this.wrapperWidth * 100);
-        console.log("posX: ", event.pageX);
         this.mouseYpercentage = Math.round(event.pageY / this.wrapperHeight * 100);
-        console.log("posY: ", event.pageY);
-        $(".mainContainer").css('background', 'radial-gradient(at ' + this.mouseXpercentage + '% ' + this.mouseYpercentage + '%, white, aqua)');
+        $(".mainContainer").css('background', 'radial-gradient(at ' + this.mouseXpercentage + '% ' + this.mouseYpercentage + '%, white, #aaaaaa)');
       })
     })
   }

@@ -1,0 +1,30 @@
+
+.mygoalsWrapper {
+    height: 90vh;
+    width: 90%;
+    background-color: #2e2e2e;
+    border-radius: 20px;
+    margin: auto;
+    overflow: auto;
+    padding-bottom: 80px;
+    /* border: 2px solid black; */
+}
+
+.header {
+    height: 100px;
+    width: 100%;
+    background-color: #e2e2e2;
+    border-radius: 20px 20px 0px 0px;
+    text-align: center;
+    border: 4px solid orange;
+    font-size: 24px;
+    /* font-weight: 200; */
+    margin-bottom: 20px;
+}
+
+.oneGoal {
+    height: 200px;
+    width: 100%;
+    background-color: #c5c5c5;
+    border-bottom: 2px solid black;
+}
