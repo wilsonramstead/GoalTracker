@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { HttpService } from '../http.service';
+
 
 @Component({
   selector: 'app-my-goals',
@@ -8,10 +10,22 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class MyGoalsComponent implements OnInit {
   @Output() navLink = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private _httpService: HttpService) { }
 
   ngOnInit() {
+    this.getGoals();
   }
+
+  allGoals = [];
+  getGoals() {
+    let observable = this._httpService.getGoals();
+    observable.subscribe(data => {
+        this.allGoals = data['data'];
+        console.log("allPets: ", this.allGoals);
+    })
+  }
+
+
   callParent(string) {
     this.navLink.next(string);
   }

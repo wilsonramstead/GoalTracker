@@ -1,0 +1,56 @@
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { HttpService } from '../http.service';
+
+@Component({
+  selector: 'app-new-goal',
+  templateUrl: './new-goal.component.html',
+  styleUrls: ['./new-goal.component.css']
+})
+export class NewGoalComponent implements OnInit {
+  @Output() navLink = new EventEmitter<string>();
+
+  constructor(private _httpService: HttpService) { }
+
+  newGoal: any;
+  newMonth: any;
+  message: any;
+  monthNum: any;
+  currentMonth: any;
+
+  ngOnInit() {
+    this.newGoal = { 'Name': '', 'Description': ''};
+    this.newMonth = { 'Name': '', 'GoalID': '', 'DayOne': false, 'DayTwo': false, 'DayThree': false, 'DayFour': false, 'DayFive': false, 'DaySix': false, 'DaySeven': false, 'DayEight': false, 'DayNine': false, 'DayTen': false, 'DayEleven': false, 'DayTwelve': false, 'DayThirteen': false, 'DayFourteen': false, 'DayFifteen': false, 'DaySixteen': false, 'DaySeventeen': false, 'DayEighteen': false, 'DayNineteen': false, 'DayTwenty': false, 'DayTwentyone': false, 'DayTwentytwo': false, 'DayTwentythree': false, 'DayTwentyfour': false, 'DayTwentyfive': false, 'DayTwentysix': false, 'DayTwentyseven': false, 'DayTwentyeight': false, 'DayTwentynine': false, 'DayThirty': false, 'DayThirtyone': false};
+    this.currentMonth = 'test';
+    this.getMonth();
+  }
+  callParent(string) {
+    this.navLink.next(string);
+  }
+
+
+
+  
+  createGoal() {
+    console.log('this.newGoal: ', this.newGoal);
+    console.log('this.newGoal._id: ', this.newGoal._id);
+    let observable = this._httpService.addGoal(this.newGoal);
+    observable.subscribe(data => {
+      if(data['message'] == "Error") {
+        this.message = data;
+      }
+      console.log("Data: ", data);
+      this.newGoal = { 'Name': '', 'Description': ''};
+    })
+  }
+
+  getMonth() {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const date = new Date();
+    console.log('date: ', date);
+    this.currentMonth = monthNames[date.getMonth()];
+    this.monthNum = date.getMonth()+1;
+    console.log('month: ', this.currentMonth);
+    return this.currentMonth;
+  }
+
+}

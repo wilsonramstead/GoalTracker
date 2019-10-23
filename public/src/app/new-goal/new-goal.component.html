@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<div class="newGoalWrapper">
+    <div class="header">
+        <h1>New Goal</h1>
+        <button class="btn btn-primary" style="height: 34px; font-size: 16px; font-weight: bold; margin: 2px; color: white; border: 2px solid black"><a (click)="callParent('Calendar')">Calendar</a></button>
+        <button class="btn btn-success" style="height: 34px; font-size: 16px; font-weight: bold; margin: 2px; color: white; border: 2px solid black"><a (click)="callParent('Goals')">My Goals</a></button>
+    </div>
+    <div class="newGoal">
+        <form>
+            <p>Goal Name: <p>
+            <div *ngIf="!Name.valid">Name must be at least 3 characters</div>
+            <p><input required minlength="3" #Name="ngModel" [(ngModel)]="newGoal.Name" name="newGoal.Name" type="text" placeholder="Gym Szzn"></p>
+            <p>Goal Description: </p>
+            <div *ngIf="!Description.valid">Name must be at least 3 characters</div>
+            <p><textarea required minlength="3" #Description="ngModel" [(ngModel)]="newGoal.Description" name="newGoal.Description" cols="40" rows="3" type="text" placeholder="Gym everyday..."></textarea></p>
+            <!-- <input [(ngModel)]="newMonth.Name" name="newMonth.Name" value="{{currentMonth}}" type="hidden"> -->
+            <input class="btn btn-success" type="submit" (click)="createGoal()" value="Create">
+        </form>
+    </div>
+
+</div>

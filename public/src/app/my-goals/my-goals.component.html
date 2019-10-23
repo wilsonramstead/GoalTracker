@@ -4,13 +4,16 @@
 <div class="mygoalsWrapper">
     <div class="header">
         <h1>My Goals</h1>
-        <button class="btn btn-primary" style="height: 34px; font-size: 16px; font-weight: bold; margin: 2px; color: white; border: 2px solid black"><a (click)="callParent('Calendar')">Calendar</a></button>
-        <button class="btn btn-success" style="height: 34px; font-size: 16px; font-weight: bold; margin: 2px; color: white; border: 2px solid black"><a (click)="callParent('Goals')">My Goals</a></button>
+        <div class="buttons">
+            <button (click)="callParent('Calendar')" class="btn btn-primary"><a>Calendar</a></button>
+            <!-- <button disabled class="btn btn-success"><a (click)="callParent('Goals')">My Goals</a></button> -->
+            <button (click)="callParent('newGoal')" class="btn btn-primary"><a>New Goal</a></button>
+        </div>
     </div>
+    <!-- <a class="newLink" (click)="callParent('newGoal')">New Goal</a> -->
     
-    <div class="oneGoal">
-        <h1>Goal Name</h1>
-        <h4>Goal description</h4>
-
+    <div *ngFor="let goal of allGoals" class="oneGoal">
+        <h1>{{ goal.Name }}</h1>
+        <h4>{{ goal.Description }}</h4>
     </div>
 </div>

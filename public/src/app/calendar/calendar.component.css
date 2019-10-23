@@ -20,7 +20,14 @@
     /* font-weight: 200; */
     margin-bottom: 20px;
 }
-
+.header .buttons button {
+    height: 34px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 2px;
+    color: white;
+    border: 2px solid black;
+}
 .month {
     height: 700px;
     width: 94%;

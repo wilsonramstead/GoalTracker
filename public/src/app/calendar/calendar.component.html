@@ -5,14 +5,17 @@
 <div class="calendarWrapper">
     <div class="header">
         <h1>{{ currentMonth }}</h1>
-        <button class="btn btn-primary" style="height: 34px; font-size: 16px; font-weight: bold; margin: 2px; color: white; border: 2px solid black"><a (click)="callParent('Calendar')">Calendar</a></button>
-        <button class="btn btn-success" style="height: 34px; font-size: 16px; font-weight: bold; margin: 2px; color: white; border: 2px solid black"><a (click)="callParent('Goals')">My Goals</a></button>
+        <div class="buttons">
+            <button (click)="callParent('Calendar')" class="btn btn-primary"><a >Calendar</a></button>
+            <button (click)="callParent('Goals')" class="btn btn-success"><a >My Goals</a></button>
+        </div>
     </div>
 
     <div class="month">
         <div *ngFor="let week of weeks" class="week">
-            <div *ngFor="let day of weekDays" id="{{week}}{{day}}" class="day"><h4>{{ day }}</h4><p>{{ monthNum }}/{{ dayNums() }}</p></div>
+            <div *ngFor="let day of weekDays" id="{{week}}{{day}}" class="day"><h4>{{ day }}</h4></div>
         </div>
+        <!-- <p>{{ monthNum }}/{{ dayNums() }}</p> -->
     </div>
 
 </div>
