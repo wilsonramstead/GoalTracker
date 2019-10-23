@@ -14,6 +14,7 @@ export class MyGoalsComponent implements OnInit {
 
   ngOnInit() {
     this.getGoals();
+    this.getMonths();
   }
 
   allGoals = [];
@@ -21,7 +22,16 @@ export class MyGoalsComponent implements OnInit {
     let observable = this._httpService.getGoals();
     observable.subscribe(data => {
         this.allGoals = data['data'];
-        console.log("allPets: ", this.allGoals);
+        console.log("allGoals: ", this.allGoals);
+    })
+  }
+
+  allMonths = [];
+  getMonths() {
+    let observable = this._httpService.getMonths();
+    observable.subscribe(data => {
+      this.allMonths = data['data'];
+      console.log('allMonths: ', this.allMonths);
     })
   }
 
@@ -32,6 +42,15 @@ export class MyGoalsComponent implements OnInit {
       console.log('data: ', data);
     })
     this.getGoals();
+    this.deleteMonth(id);
+  }
+  deleteMonth(id) {
+    console.log("DELETING MONTH");
+    let observable = this._httpService.deleteMonth(id);
+    observable.subscribe(data => {
+      console.log('data: ', data);
+    })
+    this.getMonths();
   }
 
 
