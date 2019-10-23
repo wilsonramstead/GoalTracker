@@ -25,6 +25,15 @@ export class MyGoalsComponent implements OnInit {
     })
   }
 
+  deleteGoal(id) {
+    console.log('id: ', id);
+    let observable = this._httpService.delete(id);
+    observable.subscribe(data => {
+      console.log('data: ', data);
+    })
+    this.getGoals();
+  }
+
 
   callParent(string) {
     this.navLink.next(string);
