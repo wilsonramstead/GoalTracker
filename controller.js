@@ -1,10 +1,9 @@
 
 const Goal = require('./models/goal');
-const Month = require('./models/month');
 
 module.exports = {
     index: (req,res) => {
-        Goal.find({}).sort({Type: ""})
+        Goal.find({})
             .then(data => {
                 res.json({message: "Success", data:data});
             })
@@ -55,9 +54,5 @@ module.exports = {
             console.log("Error: ", err);
             res.json({message: "Error", error:err});
         })
-    },
-
-    // UpdateMonth: (req,res)={
-        // Goal.findOneAndUpdate({_id: req.params.id}, {$push: {}})
-    // }
+    }
 }

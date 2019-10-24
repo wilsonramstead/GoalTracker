@@ -1,10 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../http.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-new-goal',
   templateUrl: './new-goal.component.html',
-  styleUrls: ['./new-goal.component.css']
+  styleUrls: ['./new-goal.component.css'],
+  providers: [DatePipe]
 })
 export class NewGoalComponent implements OnInit {
   @Output() navLink = new EventEmitter<string>();
@@ -12,86 +14,40 @@ export class NewGoalComponent implements OnInit {
   constructor(private _httpService: HttpService) { }
 
   newGoal: any;
-  newMonth: any;
-  message: any;
   monthNum: any;
   currentMonth: any;
   allGoals: any;
-  createdMonth: any;
 
   ngOnInit() {
     this.getGoals();
-    this.newGoal = { 'Name': '', 'Description': ''};
-    this.newMonth = { 'Name': '', 'GoalID': '', 'DayOne': false, 'DayTwo': false, 'DayThree': false, 'DayFour': false, 'DayFive': false, 'DaySix': false, 'DaySeven': false, 'DayEight': false, 'DayNine': false, 'DayTen': false, 'DayEleven': false, 'DayTwelve': false, 'DayThirteen': false, 'DayFourteen': false, 'DayFifteen': false, 'DaySixteen': false, 'DaySeventeen': false, 'DayEighteen': false, 'DayNineteen': false, 'DayTwenty': false, 'DayTwentyone': false, 'DayTwentytwo': false, 'DayTwentythree': false, 'DayTwentyfour': false, 'DayTwentyfive': false, 'DayTwentysix': false, 'DayTwentyseven': false, 'DayTwentyeight': false, 'DayTwentynine': false, 'DayThirty': false, 'DayThirtyone': false};
-    this.currentMonth = 'test';
+    this.newGoal = { 'Name': '', 'Description': '', 'CurrentMonthName': '', 'CurrentMonth': [{'Day': 1, 'Status': 'undefined'}, {'Day': 2, 'Status': 'undefined'}, {'Day': 3, 'Status': 'undefined'}, {'Day': 4, 'Status': 'undefined'}, {'Day': 5, 'Status': 'undefined'}, {'Day': 6, 'Status': 'undefined'}, {'Day': 7, 'Status': 'undefined'}, {'Day': 8, 'Status': 'undefined'}, {'Day': 9, 'Status': 'undefined'},{'Day': 10, 'Status': 'undefined'},{'Day': 11, 'Status': 'undefined'},{'Day': 12, 'Status': 'undefined'},{'Day': 13, 'Status': 'undefined'},{'Day': 14, 'Status': 'undefined'},{'Day': 15, 'Status': 'undefined'},{'Day': 16, 'Status': 'undefined'},{'Day': 17, 'Status': 'undefined'},{'Day': 18, 'Status': 'undefined'},{'Day': 19, 'Status': 'undefined'},{'Day': 20, 'Status': 'undefined'},{'Day': 21, 'Status': 'undefined'},{'Day': 22, 'Status': 'undefined'},{'Day': 23, 'Status': 'undefined'},{'Day': 24, 'Status': 'undefined'},{'Day': 25, 'Status': 'undefined'},{'Day': 26, 'Status': 'undefined'},{'Day': 27, 'Status': 'undefined'},{'Day': 28, 'Status': 'undefined'},{'Day': 29, 'Status': 'undefined'},{'Day': 30, 'Status': 'undefined'},{'Day': 31, 'Status': 'undefined'}]};
     this.getMonth();
   }
   callParent(string) {
     this.navLink.next(string);
   }
 
-  processAll() {
-    this.createGoal();
-    this.createMonth();
-    this.joinGoalMonth();
-  }
-
-  joinGoalMonth() {
-    console.log("this.allGoals[this.allGoals.length-1]['_id']: ", this.allGoals[this.allGoals.length-1]['_id']);
-    console.log('this.createdMonth', this.createdMonth);
-    let observable = this._httpService.joinTwo(this.allGoals[this.allGoals.length-1]['_id'], this.createdMonth);
-    observable.subscribe(data => {
-        console.log('data: ', data);
-    })
-  }
-
-
-  createMonth() {
-    this.newMonth['Name'] = this.getMonth();
-    this.newMonth['GoalID'] = this.allGoals[this.allGoals.length-1]['_id'];
-    console.log('this.newMonth: ', this.newMonth);
-    this.createdMonth = this.newMonth;
-    let observable = this._httpService.addMonth(this.newMonth);
-    observable.subscribe(data => {
-      if(data['message'] === "Error") {
-        this.message = data;
-      }
-      console.log('data: ', data);
-      this.newMonth = { 'Name': '', 'GoalID': '', 'DayOne': false, 'DayTwo': false, 'DayThree': false, 'DayFour': false, 'DayFive': false, 'DaySix': false, 'DaySeven': false, 'DayEight': false, 'DayNine': false, 'DayTen': false, 'DayEleven': false, 'DayTwelve': false, 'DayThirteen': false, 'DayFourteen': false, 'DayFifteen': false, 'DaySixteen': false, 'DaySeventeen': false, 'DayEighteen': false, 'DayNineteen': false, 'DayTwenty': false, 'DayTwentyone': false, 'DayTwentytwo': false, 'DayTwentythree': false, 'DayTwentyfour': false, 'DayTwentyfive': false, 'DayTwentysix': false, 'DayTwentyseven': false, 'DayTwentyeight': false, 'DayTwentynine': false, 'DayThirty': false, 'DayThirtyone': false};
-    })
-    this.joinGoalMonth();
-  }
-
   createGoal() {
-    console.log('this.newGoal: ', this.newGoal);
+    this.newGoal['CurrentMonthName'] = this.getMonth();
     let observable = this._httpService.addGoal(this.newGoal);
     observable.subscribe(data => {
-      if(data['message'] == "Error") {
-        this.message = data;
-      }
       console.log("Data: ", data);
       this.newGoal = { 'Name': '', 'Description': ''};
     })
-    this.createMonth();
   }
 
   getGoals() {
     let observable = this._httpService.getGoals();
     observable.subscribe(data => {
         this.allGoals = data['data'];
-        console.log("allGoalsinside: ", this.allGoals);
-        // console.log("this.allGoals[this.allGoals.length-1]['_id']", this.allGoals[this.allGoals.length-1]['_id']);
     })
   }
 
   getMonth() {
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const date = new Date();
-    console.log('date: ', date);
     this.currentMonth = monthNames[date.getMonth()];
     this.monthNum = date.getMonth()+1;
-    console.log('month: ', this.currentMonth);
     return this.currentMonth;
   }
-
 }

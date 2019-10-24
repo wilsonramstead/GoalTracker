@@ -38,7 +38,7 @@
 .day {
     height: 175px;
     width: 14.2857143%;
-    background: radial-gradient(white, rgb(112, 245, 255));
+    background: radial-gradient(white, rgb(79, 91, 255));
     display: inline-block;
     border: 2px solid black;
     text-align: center;

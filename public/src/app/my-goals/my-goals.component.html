@@ -13,12 +13,12 @@
     <!-- <a class="newLink" (click)="callParent('newGoal')">New Goal</a> -->
     
     <div *ngFor="let goal of allGoals" class="oneGoal">
+        <h1>{{ goal }}</h1>
         <h1>{{ goal.Name }}</h1>
-        <h4>{{ goal.Description }}</h4>
-        <h4>:::{{ goal.CurrentMonth.Name }}</h4>
+        <div *ngFor="let value of goal.CurrentMonth">
+            <h4>{{ value.Day }}</h4>
+            <h4>{{ value.Status }}</h4>            
+        </div>
         <button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button>
-    </div>
-    <div *ngFor="let month of allMonths" class="oneGoal">
-        <h1>MONTH: {{ month }}</h1>
     </div>
 </div>
