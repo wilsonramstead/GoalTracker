@@ -10,38 +10,28 @@
             <button (click)="callParent('Calendar')" class="btn btn-primary"><a >Calendar</a></button>
             <button (click)="callParent('Goals')" class="btn btn-success"><a >My Goals</a></button>
         </div>
-        <!-- <form>
-            <select>
-                <option>Select a goal</option>
-                <option *ngFor="let goal of allGoals" (click)="goalSelect(goal._id)"  value="{{ goal._id }}">{{ goal.Name }}</option>
-            </select>
-        </form> -->
         <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
-            <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Select a Goal</button>
+            <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">{{ selectMessage }}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownManual">
                 <button *ngFor="let goal of allGoals" (click)="goalSelect(goal._id)" ngbDropdownItem>{{ goal.Name }}</button>
             </div>            
         </div>
     </div>
 
-    <!-- <div class="month">
+    <div *ngIf="monthDays.length === 0" class="month">
         <div *ngFor="let week of weeks" class="week">
             <div *ngFor="let day of weekDays" id="{{week}}{{day}}" class="day"><h4>{{ day }}</h4></div>
         </div>
-    </div> -->
+    </div>
 
-
-    <!-- <div *ngFor="let value of goal.CurrentMonth">
-            <h4>{{ value.Day }}</h4>
-            <h4>{{ value.Status }}</h4>            
-            <div *ngFor="let goal of allGoals" class="oneGoal">
-                <h1>{{ goal }}</h1>
-                <h1>{{ goal.Name }}</h1>
-                <div *ngFor="let value of goal.CurrentMonth">
-                    <h4>{{ value.Day }}</h4>
-                    <h4>{{ value.Status }}</h4>            
-                </div>
-                <button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button>
+    <div *ngIf="monthDays.length >= 1" class="month">
+        <!-- <div class="week"> -->
+            <div *ngFor="let info of monthDays" class="day">
+                <div *ngIf="info.Day === currentDay" class="currentDay"><h4>{{ info.Day }}</h4></div>
+                <h4 *ngIf="info.Day != currentDay">{{ info.Day }}</h4>
+                <!-- <h4>{{ info.Day }}</h4> -->
             </div>
-        </div> -->
+        <!-- </div> -->
+    </div>
+
 </div>

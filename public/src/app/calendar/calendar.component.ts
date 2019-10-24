@@ -19,6 +19,10 @@ export class CalendarComponent implements OnInit {
   currentMonth: any
   count: any;
   firstGoal: any;
+  selectMessage: any;
+  monthDays: any;
+  currentGoal: any;
+  currentDay: any;
 
   ngOnInit() {
     $(document).ready(function() { 
@@ -33,15 +37,19 @@ export class CalendarComponent implements OnInit {
     this.weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     this.currentMonth = this.getMonth();
     this.count = 2;
-    this.currentDay();
+    this.currentDay = this.getCurrentDay();
     this.getGoals();
     this.firstGoal = this.allGoals[0];
+    this.selectMessage = 'Select a Goal';
+    this.monthDays = [];
+    console.log('this.monthDays: ', this.monthDays);
   }
 
-  currentDay() {
+  getCurrentDay() {
     const date = new Date();
     const day = date.getDate();
     console.log('day: ', day);
+    return day;
   }
 
   dayNums() {
@@ -64,20 +72,18 @@ export class CalendarComponent implements OnInit {
   }
 
 
-  monthDays = [];
+
   goalSelect(id) {
     console.log('id: ', id);
     let observable = this._httpService.findOne(id);
     observable.subscribe(data => {
+      this.currentGoal = data['data'];
+      this.selectMessage = data['data'].Name;
+      this.monthDays = data['data']['CurrentMonth'];
+      console.log('this.monthDays: ', this.monthDays);
       console.log('data: ', data);
     })
-    // this.allGoals.forEach(function(value) {
-    //   console.log('value: ', value);
-    //   value['CurrentMonth'].forEach(function(value2) {
-    //     console.log('value2: ', value2);
-    //   })
-    // })
-
+    return this.monthDays;
   }
 
   allGoals = [];

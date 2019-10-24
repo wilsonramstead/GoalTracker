@@ -10,7 +10,7 @@
     /* border: 2px solid black; */
 }
 .header {
-    height: 100px;
+    min-height: 100px;
     width: 100%;
     background-color: #e2e2e2;
     border-radius: 20px 20px 0px 0px;
@@ -38,7 +38,7 @@
 .day {
     height: 175px;
     width: 14.2857143%;
-    background: radial-gradient(white, rgb(79, 91, 255));
+    background: radial-gradient(white, silver);
     display: inline-block;
     border: 2px solid black;
     text-align: center;
@@ -46,6 +46,12 @@
     font-weight: bold;
     transition: all .2s ease-in-out;
     vertical-align: top;
+}
+.day .currentDay {
+    height: 175px;
+    width: 100%;
+    background: radial-gradient(white, rgb(101, 181, 255));
+    transition: all .2s ease-in-out;
 }
 .day:hover {
     transition: scale(1.1);

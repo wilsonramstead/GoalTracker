@@ -21,9 +21,6 @@
     /* font-weight: 200; */
     margin-bottom: 20px;
 }
-/* .newLink {
-    color: #007bfe;
-} */
 .header .buttons button {
     height: 34px;
     font-size: 16px;
@@ -37,4 +34,5 @@
     width: 100%;
     background-color: #c5c5c5;
     border-bottom: 2px solid black;
+    padding-bottom: 20px;
 }

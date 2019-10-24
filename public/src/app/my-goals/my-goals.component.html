@@ -6,28 +6,12 @@
         <h1>My Goals</h1>
         <div class="buttons">
             <button (click)="callParent('Calendar')" class="btn btn-primary"><a>Calendar</a></button>
-            <!-- <button disabled class="btn btn-success"><a (click)="callParent('Goals')">My Goals</a></button> -->
             <button (click)="callParent('newGoal')" class="btn btn-primary"><a>New Goal</a></button>
         </div>
     </div>
-    <!-- <a class="newLink" (click)="callParent('newGoal')">New Goal</a> -->
-    
     <div *ngFor="let goal of allGoals" class="oneGoal">
-        <h1>{{ goal }}</h1>
         <h1>{{ goal.Name }}</h1>
-        <div *ngFor="let value of goal.CurrentMonth">
-            <h4>{{ value.Day }}</h4>
-            <h4>{{ value.Status }}</h4>            
-            <div *ngFor="let goal of allGoals" class="oneGoal">
-                <h1>{{ goal }}</h1>
-                <h1>{{ goal.Name }}</h1>
-                <div *ngFor="let value of goal.CurrentMonth">
-                    <h4>{{ value.Day }}</h4>
-                    <h4>{{ value.Status }}</h4>            
-                </div>
-                <button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button>
-            </div>
-        </div>
+        <h1>{{ goal.Description }}</h1>
         <button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button>
     </div>
 </div>
