@@ -35,11 +35,15 @@ export class CalendarComponent implements OnInit {
     this.weeks = [1,2,3,4]
     // this.monthNums = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
     this.weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+
+
+
     this.currentMonth = this.getMonth();
     this.count = 2;
     this.currentDay = this.getCurrentDay();
     this.getGoals();
-    this.firstGoal = this.allGoals[0];
+    // this.firstGoal = this.allGoals[0];
     this.selectMessage = 'Select a Goal';
     this.monthDays = [];
     console.log('this.monthDays: ', this.monthDays);
