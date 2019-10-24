@@ -18,6 +18,15 @@
         <div *ngFor="let value of goal.CurrentMonth">
             <h4>{{ value.Day }}</h4>
             <h4>{{ value.Status }}</h4>            
+            <div *ngFor="let goal of allGoals" class="oneGoal">
+                <h1>{{ goal }}</h1>
+                <h1>{{ goal.Name }}</h1>
+                <div *ngFor="let value of goal.CurrentMonth">
+                    <h4>{{ value.Day }}</h4>
+                    <h4>{{ value.Status }}</h4>            
+                </div>
+                <button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button>
+            </div>
         </div>
         <button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button>
     </div>

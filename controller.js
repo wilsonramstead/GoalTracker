@@ -22,17 +22,17 @@ module.exports = {
                 res.json({ message: "Error", error:err});
             })
     },
-    // findOne: (req,res) => {
-    //     Goal.findOne({_id: req.params.id})
-    //         .then(data => {
-    //             console.log("Data: ", data);
-    //             res.json({ message: "Success", data:data});
-    //         })
-    //         .catch(err => {
-    //             console.log("Error: ", err);
-    //             res.json({ message: "Error: ", error:err});
-    //         })
-    // },
+    findOne: (req,res) => {
+        Goal.findOne({_id: req.params.id})
+            .then(data => {
+                console.log("Data: ", data);
+                res.json({ message: "Success", data:data});
+            })
+            .catch(err => {
+                console.log("Error: ", err);
+                res.json({ message: "Error: ", error:err});
+            })
+    },
     edit: (req,res)=> {
         Goal.findOneAndUpdate({ _id: req.params.id }, { Name: req.body.Name, Type: req.body.Type, Description: req.body.Description, Skill1: req.body.Skill1, Skill2: req.body.Skill2, Skill3: req.body.Skill3}, {runValidators:true})
         .then(data =>{

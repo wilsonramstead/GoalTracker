@@ -14,9 +14,9 @@ export class HttpService {
   addGoal(newGoal) {
     return this._http.post('/goals', newGoal);
   }
-  // findOne(id) {
-  //   return this._http.get('/goals/' + id);
-  // }
+  findOne(id) {
+    return this._http.get('/goals/' + id);
+  }
   editGoal(id, goal) {
     return this._http.put('/goals/' + id, goal);
   }

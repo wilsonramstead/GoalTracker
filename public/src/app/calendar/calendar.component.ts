@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { HttpService } from '../http.service'; 
 import * as $ from 'jquery';
 
 @Component({
@@ -9,13 +10,15 @@ import * as $ from 'jquery';
 export class CalendarComponent implements OnInit {
   @Output() navLink = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private _httpService: HttpService) { }
+
   weeks: any;
   weekDays: any;
   monthNum: any;
   // monthNums: any;
   currentMonth: any
   count: any;
+  firstGoal: any;
 
   ngOnInit() {
     $(document).ready(function() { 
@@ -31,6 +34,8 @@ export class CalendarComponent implements OnInit {
     this.currentMonth = this.getMonth();
     this.count = 2;
     this.currentDay();
+    this.getGoals();
+    this.firstGoal = this.allGoals[0];
   }
 
   currentDay() {
@@ -57,6 +62,34 @@ export class CalendarComponent implements OnInit {
     console.log('month: ', month);
     return month;
   }
+
+
+  monthDays = [];
+  goalSelect(id) {
+    console.log('id: ', id);
+    let observable = this._httpService.findOne(id);
+    observable.subscribe(data => {
+      console.log('data: ', data);
+    })
+    // this.allGoals.forEach(function(value) {
+    //   console.log('value: ', value);
+    //   value['CurrentMonth'].forEach(function(value2) {
+    //     console.log('value2: ', value2);
+    //   })
+    // })
+
+  }
+
+  allGoals = [];
+  getGoals() {
+    let observable = this._httpService.getGoals();
+    observable.subscribe(data => {
+        this.allGoals = (data['data']);
+        console.log('allGoals: ', this.allGoals);
+    })
+    return this.allGoals;
+  }
+
   callParent(string) {
     this.navLink.next(string);
   }
