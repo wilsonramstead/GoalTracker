@@ -20,6 +20,9 @@ export class HttpService {
   changeStatus(id, goal) {
     return this._http.put('/goals/' + id, goal);
   }
+  editGoal(id, goal) {
+    return this._http.put('/editGoal/' + id, goal);
+  }
   delete(id) {
     return this._http.delete('/goals/' + id);
   }

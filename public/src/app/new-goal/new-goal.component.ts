@@ -16,6 +16,7 @@ export class NewGoalComponent implements OnInit {
   newGoal: any;
   monthString: any;
   monthNum: any;
+  currentYear: any;
   allGoals: any;
   weekDays: any;
   dayOfMonth: any;
@@ -24,7 +25,7 @@ export class NewGoalComponent implements OnInit {
   ngOnInit() {
     this.getGoals();
     this.getDateInfo();
-    this.newGoal = { 'Name': '', 'Description': '', 'CurrentMonthName': '', 'CurrentMonth': [{'Day': 1, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 2, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 3, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 4, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 5, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 6, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 7, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 8, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 9, 'WeekDay': '', 'Status': 'undefined'},{'Day': 10, 'WeekDay': '', 'Status': 'undefined'},{'Day': 11, 'WeekDay': '', 'Status': 'undefined'},{'Day': 12, 'WeekDay': '', 'Status': 'undefined'},{'Day': 13, 'WeekDay': '', 'Status': 'undefined'},{'Day': 14, 'WeekDay': '', 'Status': 'undefined'},{'Day': 15, 'WeekDay': '', 'Status': 'undefined'},{'Day': 16, 'WeekDay': '', 'Status': 'undefined'},{'Day': 17, 'WeekDay': '', 'Status': 'undefined'},{'Day': 18, 'WeekDay': '', 'Status': 'undefined'},{'Day': 19, 'WeekDay': '', 'Status': 'undefined'},{'Day': 20, 'WeekDay': '', 'Status': 'undefined'},{'Day': 21, 'WeekDay': '', 'Status': 'undefined'},{'Day': 22, 'WeekDay': '', 'Status': 'undefined'},{'Day': 23, 'WeekDay': '', 'Status': 'undefined'},{'Day': 24, 'WeekDay': '', 'Status': 'undefined'},{'Day': 25, 'WeekDay': '', 'Status': 'undefined'},{'Day': 26, 'WeekDay': '', 'Status': 'undefined'},{'Day': 27, 'WeekDay': '', 'Status': 'undefined'},{'Day': 28, 'WeekDay': '', 'Status': 'undefined'},{'Day': 29, 'WeekDay': '', 'Status': 'undefined'},{'Day': 30, 'WeekDay': '', 'Status': 'undefined'},{'Day': 31, 'WeekDay': '', 'Status': 'undefined'}]};
+    this.newGoal = { 'Name': '', 'Description': '', 'CreationDay': '', 'UpdatedAt': '', 'CurrentMonthName': '', 'CurrentMonth': [{'Day': 1, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 2, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 3, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 4, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 5, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 6, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 7, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 8, 'WeekDay': '', 'Status': 'undefined'}, {'Day': 9, 'WeekDay': '', 'Status': 'undefined'},{'Day': 10, 'WeekDay': '', 'Status': 'undefined'},{'Day': 11, 'WeekDay': '', 'Status': 'undefined'},{'Day': 12, 'WeekDay': '', 'Status': 'undefined'},{'Day': 13, 'WeekDay': '', 'Status': 'undefined'},{'Day': 14, 'WeekDay': '', 'Status': 'undefined'},{'Day': 15, 'WeekDay': '', 'Status': 'undefined'},{'Day': 16, 'WeekDay': '', 'Status': 'undefined'},{'Day': 17, 'WeekDay': '', 'Status': 'undefined'},{'Day': 18, 'WeekDay': '', 'Status': 'undefined'},{'Day': 19, 'WeekDay': '', 'Status': 'undefined'},{'Day': 20, 'WeekDay': '', 'Status': 'undefined'},{'Day': 21, 'WeekDay': '', 'Status': 'undefined'},{'Day': 22, 'WeekDay': '', 'Status': 'undefined'},{'Day': 23, 'WeekDay': '', 'Status': 'undefined'},{'Day': 24, 'WeekDay': '', 'Status': 'undefined'},{'Day': 25, 'WeekDay': '', 'Status': 'undefined'},{'Day': 26, 'WeekDay': '', 'Status': 'undefined'},{'Day': 27, 'WeekDay': '', 'Status': 'undefined'},{'Day': 28, 'WeekDay': '', 'Status': 'undefined'},{'Day': 29, 'WeekDay': '', 'Status': 'undefined'},{'Day': 30, 'WeekDay': '', 'Status': 'undefined'},{'Day': 31, 'WeekDay': '', 'Status': 'undefined'}]};
     this.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];    
   }
   callParent(string) {
@@ -48,6 +49,9 @@ export class NewGoalComponent implements OnInit {
       this.newGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays[0];
       this.weekDays.unshift(this.weekDays.pop());
     }
+    const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
+    this.newGoal['CreationDay'] = monthDayYear;
+    this.newGoal['UpdatedAt'] = monthDayYear;
     console.log('newGoal: ', this.newGoal);
     let observable = this._httpService.addGoal(this.newGoal);
     observable.subscribe(data => {
@@ -68,6 +72,7 @@ export class NewGoalComponent implements OnInit {
     var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.monthString = monthNames[date.getMonth()];
     console.log('monthString: ', this.monthString)
+    this.currentYear = date.getFullYear();
     this.monthNum = date.getMonth()+1;
     console.log('monthNum: ', this.monthNum);
     this.dayOfMonth = date.getDate();
