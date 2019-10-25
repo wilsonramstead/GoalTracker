@@ -9,9 +9,16 @@
             <button (click)="callParent('newGoal')" class="btn btn-primary"><a>New Goal</a></button>
         </div>
     </div>
-    <div *ngFor="let goal of allGoals" class="oneGoal">
+    <div *ngFor="let goal of allGoals; let i = index" class="oneGoal">
         <h1>{{ goal.Name }}</h1>
         <h1>{{ goal.Description }}</h1>
-        <button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button>
+        <h1>{{ dayOfMonth }}</h1>
+        <h1>{{ allMonths }}</h1>
+
+        <p><button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] != 'Complete'" (click)="makeStatusComplete(goal._id, goal)" class="btn btn-success"><a>Complete</a></button></p>
+        <p><button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] === 'Complete'" disabled class="btn btn-success"><a></a>Good Job!</button></p>
+        <p><button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button></p>
     </div>
 </div>
+
+<!-- *ngIf="goal['CurrentMonth'][i]['Status'] === 'undefined'" -->

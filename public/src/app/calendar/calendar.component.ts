@@ -24,13 +24,6 @@ export class CalendarComponent implements OnInit {
   currentGoal: any;
 
   ngOnInit() {
-    $(document).ready(function() { 
-      $('.day').hover(function() {
-        $(this).css('transform', 'scale(1.1)');
-      }, function() {
-        $(this).css('transform', 'scale(1.0)');
-      })
-    })
     this.weeks = [1,2,3,4]
     this.monthNum = 0;
     this.weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -40,23 +33,6 @@ export class CalendarComponent implements OnInit {
     // this.firstGoal = this.allGoals[0];
     this.selectMessage = 'Select a Goal';
     this.monthDays = [];
-  }
-
-  animation() {
-    console.log('fukin genius');
-    $(document).ready(function() {
-      $('.day').hover(function() {
-        $(this).css('transform', 'scale(1.1)');
-        $(this).css('background', 'radial-gradient(white, rgb(255, 249, 167))');
-      }, function() {
-        $(this).css('transform', 'scale(1.0)');
-        $(this).css('background', 'radial-gradient(white, silver)');
-      })
-    })
-  }
-
-  applyHoverAnimation() {
-    setTimeout(this.animation, 50);
   }
 
   callParent(string) {

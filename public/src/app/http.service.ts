@@ -17,7 +17,7 @@ export class HttpService {
   findOne(id) {
     return this._http.get('/goals/' + id);
   }
-  editGoal(id, goal) {
+  changeStatus(id, goal) {
     return this._http.put('/goals/' + id, goal);
   }
   delete(id) {

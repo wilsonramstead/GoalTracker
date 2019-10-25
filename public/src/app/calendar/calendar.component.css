@@ -41,17 +41,49 @@
     text-align: center;
     font-size: 10px;
     font-weight: bold;
-    transition: all .2s ease-in-out;
+    transition: all .3s ease-in-out;
     vertical-align: top;
 }
 .currentDay {
     height: 175px;
     width: 100%;
     background: radial-gradient(white, rgb(101, 181, 255));
-    /* background: radial-gradient(white, rgb(255, 249, 167)); */
-    transition: all .2s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.completeGoal {
+    height: 175px;
+    width: 100%;
+    background: radial-gradient(white, rgb(43, 238, 60));
+    transition: all .3s ease-in-out;
+}
+.incompleteGoal {
+    height: 175px;
+    width: 100%;
+    background: radial-gradient(white, rgb(255, 68, 68));
+    transition: all .3s ease-in-out;
+}
+.currentDay:hover {
+    background: radial-gradient(white, rgb(12, 137, 255));
+    color: white;
+    text-shadow: 2px 2px 4px #2e2e2e;
+    box-shadow: 4px 4px 8px black;
+}
+.completeGoal:hover {
+    background: radial-gradient(white, rgb(0, 255, 21));
+    color: white;
+    text-shadow: 2px 2px 4px #2e2e2e;
+    box-shadow: 4px 4px 8px black;
+}
+.incompleteGoal:hover {
+    background: radial-gradient(white, rgb(255, 0, 0));
+    color: white;
+    text-shadow: 2px 2px 4px #2e2e2e;
+    box-shadow: 4px 4px 8px black;
 }
 .day:hover {
-    transition: scale(1.1);
-    background-color: orange;
+    transform: scale(1.1);
+    background: radial-gradient(white, rgb(110, 255, 199));
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    box-shadow: 4px 4px 8px black;
 }

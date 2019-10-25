@@ -4,6 +4,7 @@
 <div class="calendarWrapper">
     <div class="header">
         <h1>{{ monthString }}</h1>
+        <h3 *ngIf="selectMessage != 'Select a Goal'">{{ selectMessage }}</h3>
         <div class="buttons">
             <button (click)="callParent('Calendar')" class="btn btn-primary" disabled><a >Calendar</a></button>
             <button (click)="callParent('Goals')" class="btn btn-success"><a >My Goals</a></button>
@@ -11,26 +12,42 @@
         <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
             <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">{{ selectMessage }}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                <button *ngFor="let goal of allGoals" (click)="goalSelect(goal._id); applyHoverAnimation()" ngbDropdownItem>{{ goal.Name }}</button>
+                <button *ngFor="let goal of allGoals" (click)="goalSelect(goal._id)" ngbDropdownItem>{{ goal.Name }}</button>
             </div>            
         </div>
     </div>
 
     <div *ngIf="monthDays.length === 0" class="month">
         <div *ngFor="let week of weeks" class="week">
-            <div *ngFor="let day of weekDays" id="{{week}}{{day}}" id="calendarDay" class="day"><h4>{{ day }}</h4></div>
+            <div *ngFor="let day of weekDays" id="{{week}}{{day}}" class="day"><h4>{{ day }}</h4></div>
         </div>
     </div>
 
     <div *ngIf="monthDays.length >= 1" class="month">
         <div *ngFor="let info of monthDays" class="day">
-            <div *ngIf="info.Day === dayOfMonth" class="currentDay">
-                <h4>{{ info.WeekDay }}</h4>
-                <h5>{{ monthNum }}/{{ info.Day }}</h5>
+            <div *ngIf="info.Status === 'Complete'" class="one">
+                <div class="completeGoal">
+                    <h4>{{ info.WeekDay }}</h4>
+                    <h5>{{ monthNum }}/{{ info.Day }}</h5>
+                    <h4>{{ info.Status }}</h4>
+                </div>
             </div>
-            <div *ngIf="info.Day != dayOfMonth">
-                <h4>{{ info.WeekDay }}</h4>
-                <h5>{{ monthNum }}/{{ info.Day }}</h5>
+            <div *ngIf="info.Status === 'Incomplete'" class="two">
+                <div class="incompleteGoal">
+                    <h4>{{ info.WeekDay }}</h4>
+                    <h5>{{ monthNum }}/{{ info.Day }}</h5>
+                    <h4>{{ info.Status }}</h4>
+                </div>
+            </div>
+            <div *ngIf="info.Status === 'undefined'" class="three">
+                <div *ngIf="info.Day === dayOfMonth" class="currentDay">
+                    <h4>{{ info.WeekDay }}</h4>
+                    <h5>{{ monthNum }}/{{ info.Day }}</h5>
+                </div>
+                <div *ngIf="info.Day != dayOfMonth">
+                    <h4>{{ info.WeekDay }}</h4>
+                    <h5>{{ monthNum }}/{{ info.Day }}</h5>
+                </div>
             </div>
         </div>
     </div>
