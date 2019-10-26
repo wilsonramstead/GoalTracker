@@ -45,7 +45,18 @@ module.exports = {
         })
     },
     editGoal: (req,res)=> {
-        Goal.findOneAndUpdate({ _id: req.params.id }, { $set: { UpdatedAt: req.body.UpdatedAt, CurrentMonthName: req.body.CurrentMonthName, CurrentMonth: req.body.CurrentMonth, AllMonths: req.body.AllMonths } }, {runValidators:true})
+        Goal.findOneAndUpdate({ _id: req.params.id }, { $set: { UpdatedAt: req.body.UpdatedAt, CurrentMonthName: req.body.CurrentMonthName, CurrentMonth: req.body.CurrentMonth } }, {runValidators:true})
+        .then(data =>{
+            console.log("Data: ", data);
+            res.json({message: "Success", data:data});
+        })
+        .catch(err => {
+            console.log("Error: ", err);
+            res.json({message: "Error: ", err});
+        })
+    },
+    addMonth: (req,res)=> {
+        Goal.findOneAndUpdate({ _id: req.params.id }, { $push: {AllMonths: req.body} }, {runValidators:true})
         .then(data =>{
             console.log("Data: ", data);
             res.json({message: "Success", data:data});

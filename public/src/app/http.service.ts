@@ -26,4 +26,7 @@ export class HttpService {
   delete(id) {
     return this._http.delete('/goals/' + id);
   }
+  addMonth(id, month) {
+    return this._http.put('/addMonth/' + id, month);
+  }
 }
