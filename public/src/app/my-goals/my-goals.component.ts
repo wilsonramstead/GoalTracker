@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpService } from '../http.service';
+// import { $ } from 'protractor';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -24,12 +26,18 @@ export class MyGoalsComponent implements OnInit {
   testVar: any;
 
   ngOnInit() {
-    this.getGoals();
+    // this.getGoals();
+    let observable = this._httpService.getGoals();
+    observable.subscribe(data => {
+        this.allGoals = (data['data']);
+        console.log('allGoals: ', this.allGoals);
+    })
     this.getDateInfo();
     this.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    
-    this.checkGoals();
+    setTimeout(this.checkGoals, 1000);
+    // this.checkGoals();
   }
+
 
 
   allGoals = [];
@@ -101,7 +109,6 @@ export class MyGoalsComponent implements OnInit {
     }
     const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
     currentGoal['UpdatedAt'] = monthDayYear;
-
     let observable = this._httpService.editGoal(currentGoal._id, currentGoal);
     observable.subscribe( data => {
       console.log("data['data']: ", data['data']);
@@ -122,55 +129,38 @@ export class MyGoalsComponent implements OnInit {
     for(var goal of this.allGoals) {
       const dateArray = goal['UpdatedAt'].split('/');
       if(this.monthNum != Number(dateArray[0])) {
+        console.log('NEW MONTH');
+        console.log('this.monthNum: ', this.monthNum);
+        console.log('Number(dateArray[0]): ', Number(dateArray[0]));
         this.stepThree(goal);
+      } else {
+        if(this.dayOfMonth > Number(dateArray[1])) {
+          console.log('UPDATE DAYS');
+          // if current month, check past days to see if complete; if not, make incomplete.
+          for(var i = this.dayOfMonth-2; i > Number(dateArray[1]); i--) {
+            if(goal['CurrentMonth'][i]['Status'] != 'undefined') {
+              console.log('DONE');
+              break;
+            } else {
+              console.log('CHANGED');
+              goal['CurrentMonth'][i]['Status'] = 'Incomplete';
+            }
+          }
+          const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
+          goal['UpdatedAt'] = monthDayYear;
+          console.log('goal: ', goal);
+          let observable = this._httpService.editGoal(goal._id, goal);
+          observable.subscribe(data => {
+            console.log("Data: ", data);
+          })
+        }
       }
     }
-
-    // this.allGoals.forEach(function(value) {
-    //   const dateArray = value['UpdatedAt'].split('/');
-    //   if(monthNum != Number(dateArray[0])) {
-    //     this.test(value);
-        // for(let i = Number(dateArray[1])-1; i < 31; i++) {
-        //   value['CurrentMonth'][i]['Status'] = 'Incomplete';
-        // }
-        // console.log('value: ', value['CurrentMonth']);
-        // var pastMonthName =  value['CurrentMonthName'];
-        // value['AllMonths'][pastMonthName] = value['CurrentMonth'];
-
-        // let observable = this._httpService.editGoal(value._id, value);
-        // observable.subscribe(data => {
-        //   console.log("Data: ", data);
-        // })
-      // } else {
-      //   if(dayOfMonth > Number(dateArray[1]) && monthNum === Number(dateArray[0])) {
-      //     console.log('------------------------- this.dayOfMonth > Number(dateArray[1]) AND this.monthNum === Number(dateArray[0]) --------------------------');
-      //     // if current month, check past days to see if complete; if not, make incomplete.
-      //     for(var i = dayOfMonth-2; i > Number(dateArray[1]); i--) {
-      //       if(value['CurrentMonth'][i]['Status'] != 'undefined') {
-      //         console.log('DONE');
-      //         break;
-      //       } else {
-      //         console.log('CHANGED');
-      //         value['CurrentMonth'][i]['Status'] = 'Incomplete';
-      //       }
-      //     }
-      //     const monthDayYear = (monthNum + '/' + dayOfMonth + '/' + currentYear).toString();
-      //     value['UpdatedAt'] = monthDayYear;
-          // let observable = this._httpService.editGoal(value._id, value);
-          // observable.subscribe(data => {
-          //   console.log("Data: ", data);
-          // })
-      //   }
-      // }
-    // })
-    // console.log('the shit ran!');
+ 
   }
 
   makeStatusComplete(id, goal) {
     this.currentGoal = goal;
-    console.log('currentGoal: ', this.currentGoal);
-    console.log('dayOfMonth: ', this.dayOfMonth);
-    // console.log(':::::::', this.currentGoal['CurrentMonth'][this.dayOfMonth-1]['Status'])
     this.currentGoal['CurrentMonth'][this.dayOfMonth-1]['Status'] = 'Complete';
     const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
     this.currentGoal['UpdatedAt'] = monthDayYear;
@@ -182,13 +172,6 @@ export class MyGoalsComponent implements OnInit {
     })
     this.getGoals();
   }
-
-  // makeStatusIncomplete(id) {
-  //   let observable = this._httpService.changeStatus(id, 'Incomplete');
-  //   observable.subscribe( data => {
-  //     console.log('data: ', data);
-  //   })
-  // }
 
   deleteGoal(id) {
     console.log('id: ', id);

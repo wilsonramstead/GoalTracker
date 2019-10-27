@@ -33,7 +33,7 @@ export class NewGoalComponent implements OnInit {
   }
 
   createGoal() {
-    this.newGoal['CurrentMonthName'] = 'December!';
+    this.newGoal['CurrentMonthName'] = this.monthString;
     for(var i = 0; i <= this.dayOfWeek-1; i++) {
       this.weekDays.push(this.weekDays.shift());
     }
@@ -49,7 +49,7 @@ export class NewGoalComponent implements OnInit {
       this.newGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays[0];
       this.weekDays.unshift(this.weekDays.pop());
     }
-    const monthDayYear = ((this.monthNum+1) + '/' + (this.dayOfMonth+4) + '/' + this.currentYear).toString();
+    const monthDayYear = ((this.monthNum) + '/' + (this.dayOfMonth-4) + '/' + this.currentYear).toString();
     this.newGoal['CreationDay'] = monthDayYear;
     this.newGoal['UpdatedAt'] = monthDayYear;
     console.log('newGoal: ', this.newGoal);
