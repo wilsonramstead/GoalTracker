@@ -26,7 +26,6 @@ export class MyGoalsComponent implements OnInit {
   testVar: any;
 
   ngOnInit() {
-    // this.getGoals();
     let observable = this._httpService.getGoals();
     observable.subscribe(data => {
         this.allGoals = (data['data']);
@@ -34,8 +33,6 @@ export class MyGoalsComponent implements OnInit {
     })
     this.getDateInfo();
     this.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    // setTimeout(this.checkGoals, 1000);
-    // this.checkGoals();
   }
 
 

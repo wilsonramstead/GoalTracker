@@ -49,7 +49,7 @@ export class NewGoalComponent implements OnInit {
       this.newGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays[0];
       this.weekDays.unshift(this.weekDays.pop());
     }
-    const monthDayYear = ((this.monthNum+1) + '/' + (this.dayOfMonth) + '/' + this.currentYear).toString();
+    const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
     this.newGoal['CreationDay'] = monthDayYear;
     this.newGoal['UpdatedAt'] = monthDayYear;
     console.log('newGoal: ', this.newGoal);
