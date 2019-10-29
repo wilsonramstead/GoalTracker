@@ -12,9 +12,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.backgroundColor();
     this.page = 'Calendar';
+    console.log('test1');
   }
-
-
 
   showPage(string) {
     this.page = string;
