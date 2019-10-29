@@ -35,7 +35,6 @@ export class CalendarComponent implements OnInit {
     this.firstGoal = this.allGoals[0];
     this.selectMessage = 'Select a Goal';
     this.monthDays = [];
-    console.log('test2');
   }
 
   callParent(string) {
@@ -67,13 +66,9 @@ export class CalendarComponent implements OnInit {
     const date = new Date();
     var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.monthString = monthNames[date.getMonth()];
-    console.log('monthString: ', this.monthString)
     this.monthNum = date.getMonth()+1;
-    console.log('monthNum: ', this.monthNum);
     this.dayOfMonth = date.getDate();
-    console.log('dayOfMonth: ', this.dayOfMonth);
     this.dayOfWeek = date.getDay();
-    console.log('dayOfWeek: ', this.dayOfWeek);
     this.currentYear = date.getFullYear();
   }
 
@@ -102,7 +97,8 @@ export class CalendarComponent implements OnInit {
   //if last updated day is less than current day num.
   updateDays(goal) {
     const dateArray = goal['UpdatedAt'].split('/');
-    for(var i = this.dayOfMonth-2; i > Number(dateArray[1])-1; i--) {
+    for(var i = this.dayOfMonth-2; i >= Number(dateArray[1])-2; i--) {
+      console.log("goal['CurrentMonth'][i]: ", goal['CurrentMonth'][i]);
       if(goal['CurrentMonth'][i]['Status'] === 'Complete' || goal['CurrentMonth'][i]['Status'] === 'Incomplete') {
         break;
       } else {
@@ -164,7 +160,6 @@ export class CalendarComponent implements OnInit {
     observable.subscribe( data => {
       console.log("data['data']: ", data['data']);
     })
-    console.log('stepTwoCG: ', currentGoal);
     return currentGoal;
   }
 }

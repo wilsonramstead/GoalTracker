@@ -71,13 +71,9 @@ export class NewGoalComponent implements OnInit {
     const date = new Date();
     var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.monthString = monthNames[date.getMonth()];
-    console.log('monthString: ', this.monthString)
     this.currentYear = date.getFullYear();
     this.monthNum = date.getMonth()+1;
-    console.log('monthNum: ', this.monthNum);
     this.dayOfMonth = date.getDate();
-    console.log('dayOfMonth: ', this.dayOfMonth);
     this.dayOfWeek = date.getDay();
-    console.log('dayOfWeek: ', this.dayOfWeek);
   }
 }

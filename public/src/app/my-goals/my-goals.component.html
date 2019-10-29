@@ -9,17 +9,30 @@
             <button (click)="callParent('newGoal')" class="btn btn-primary"><a>New Goal</a></button>
         </div>
     </div>
-    <div *ngFor="let goal of allGoals; let i = index" class="oneGoal">
-        <h1>{{ goal.Name }}</h1>
-        <h1>{{ goal.Description }}</h1>
-        <h1>{{ dayOfMonth }}</h1>
-        <h1>{{ allMonths }}</h1>
-
-        <p><button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] != 'Complete'" (click)="makeStatusComplete(goal._id, goal)" class="btn btn-success"><a>Complete</a></button></p>
-        <p><button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] === 'Complete'" disabled class="btn btn-success"><a></a>Good Job!</button></p>
-        <p><button (click)="deleteGoal(goal._id)" class="btn btn-danger"><a>Delete</a></button></p>
+    <h2 class="goalsHeader">Daily Goals!</h2>
+    <div *ngFor="let goal of allGoals; let i = index" (click)="getGoalInfo(goal._id)" class="test">
+        <div *ngIf="goal['_id'] != showFullGoal" class="oneGoal">
+            <h2 class="goalName">{{ goal.Name }}</h2>
+            <div class="goalButtons">
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] != 'Complete'" (click)="makeStatusComplete(goal._id, goal)" class="btn btn-success"><a>Complete</a></button>       
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] === 'Complete'" disabled class="btn btn-success"><a></a>Good Job!</button>     
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] != 'Incomplete'" (click)="makeStatusIncomplete(goal._id, goal)" class="btn btn-danger"><a>Incomplete</a></button>       
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] === 'Incomplete'" disabled class="btn btn-danger"><a></a>Cmon bro</button>     
+            </div>
+        </div>
+        <div *ngIf="goal['_id'] === showFullGoal" class="oneGoal" id="tempOneGoal">
+            <h2 class="goalName">{{ goal.Name }}</h2>
+            <div class="goalButtons">
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] != 'Complete'" (click)="makeStatusComplete(goal._id, goal)" class="btn btn-success"><a>Complete</a></button>       
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] === 'Complete'" disabled class="btn btn-success"><a></a>Good Job!</button>     
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] != 'Incomplete'" (click)="makeStatusIncomplete(goal._id, goal)" class="btn btn-danger"><a>Incomplete</a></button>       
+                <button *ngIf="goal['CurrentMonth'][dayOfMonth-1]['Status'] === 'Incomplete'" disabled class="btn btn-danger"><a></a>Cmon bro</button>     
+            </div>
+            <div class="goalInfo">
+                <p>Description: </p>
+                <h4 class="goalDescription">{{ goal.Description }}</h4>
+                <p class="deleteLink"><a (click)="deleteGoal(goal._id)">Delete</a></p>
+            </div>
+        </div>
     </div>
 </div>
-
-<button (click)="checkGoals()">Check Goals</button>
-<button (click)="test1()">TEST</button>

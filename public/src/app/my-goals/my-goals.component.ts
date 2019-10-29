@@ -24,6 +24,7 @@ export class MyGoalsComponent implements OnInit {
   weekDays: any;
   newGoal: any;
   testVar: any;
+  showFullGoal: any;
 
   ngOnInit() {
     let observable = this._httpService.getGoals();
@@ -35,7 +36,13 @@ export class MyGoalsComponent implements OnInit {
     this.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   }
 
-
+  getGoalInfo(id) {
+    if(this.showFullGoal != id) {
+      this.showFullGoal = id;
+    } else {
+      this.showFullGoal = '';
+    }
+  }
 
   allGoals = [];
   getGoals() {
@@ -55,9 +62,8 @@ export class MyGoalsComponent implements OnInit {
     return this.currentGoal;
   }
 
-
-
   makeStatusComplete(id, goal) {
+    event.stopPropagation();
     this.currentGoal = goal;
     this.currentGoal['CurrentMonth'][this.dayOfMonth-1]['Status'] = 'Complete';
     const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
@@ -71,8 +77,23 @@ export class MyGoalsComponent implements OnInit {
     this.getGoals();
   }
 
+  makeStatusIncomplete(id, goal) {
+    event.stopPropagation();
+    this.currentGoal = goal;
+    this.currentGoal['CurrentMonth'][this.dayOfMonth-1]['Status'] = 'Incomplete';
+    const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
+    this.currentGoal['UpdatedAt'] = monthDayYear;
+    const tempGoal = this.currentGoal['CurrentMonth'];
+    console.log('tempGoal: ', tempGoal);
+    let observable = this._httpService.changeStatus(id, tempGoal);
+    observable.subscribe( data => {
+      console.log('data: ', data);
+    })
+    this.getGoals();
+  }
+
   deleteGoal(id) {
-    console.log('id: ', id);
+    event.stopPropagation();
     let observable = this._httpService.delete(id);
     observable.subscribe(data => {
       console.log('data: ', data);
@@ -89,13 +110,9 @@ export class MyGoalsComponent implements OnInit {
     var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.monthString = monthNames[date.getMonth()];
     this.currentYear = date.getFullYear();
-    console.log('monthString: ', this.monthString)
     this.monthNum = date.getMonth()+1;
-    console.log('monthNum: ', this.monthNum);
     this.dayOfMonth = date.getDate();
-    console.log('dayOfMonth: ', this.dayOfMonth);
     this.dayOfWeek = date.getDay();
-    console.log('dayOfWeek: ', this.dayOfWeek);
   }
 
 }
