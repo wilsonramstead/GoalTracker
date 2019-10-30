@@ -1,0 +1,29 @@
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<div class="myGoalsWrapper">
+    <div class="header">
+        <h1>My Goals</h1>
+        <div class="buttons">
+            <button (click)="callParent('Calendar')" class="btn btn-primary"><a>Calendar</a></button>
+            <button *ngIf="page === 'MyGoals'" (click)="callSelf('NewGoal')" class="btn btn-primary"><a>New Goal</a></button>
+            <button *ngIf="page === 'NewGoal'" (click)="callSelf('MyGoals')" class="btn btn-primary"><a>My Goals</a></button>
+        </div>
+    </div>
+    <app-my-goals *ngIf="page === 'MyGoals'" (getGoals)="getGoals()" [dateInfo]="dateInfo" [allGoals]="allGoals"></app-my-goals>
+    <app-new-goal *ngIf="page =='NewGoal'" (getGoals)="getGoals()" [dateInfo]="dateInfo" [allGoals]="allGoals"></app-new-goal>
+    <ul class="backgroundAnimation">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>

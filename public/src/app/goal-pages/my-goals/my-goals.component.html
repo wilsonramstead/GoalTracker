@@ -1,0 +1,27 @@
+
+<h2 class="goalsHeader">Daily Goals!</h2>
+<div *ngFor="let goal of allGoals; let i = index" (click)="getGoalInfo(goal._id)" class="test">
+    <div *ngIf="goal['_id'] != showFullGoal" class="oneGoal">
+        <h2 class="goalName">{{ goal.Name }}</h2>
+        <div class="goalButtons">
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] != 'Complete'" (click)="makeStatusComplete(goal)" class="btn btn-success"><a>Complete</a></button>       
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] === 'Complete'" disabled class="btn btn-primary"><a></a>Good Job!</button>     
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] != 'Incomplete'" (click)="makeStatusIncomplete(goal)" class="btn btn-danger"><a>Incomplete</a></button>       
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] === 'Incomplete'" disabled class="btn btn-danger"><a></a>Cmon bro</button>     
+        </div>
+    </div>
+    <div *ngIf="goal['_id'] === showFullGoal" class="oneGoal" id="tempOneGoal">
+        <h2 class="goalName">{{ goal.Name }}</h2>
+        <div class="goalButtons">
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] != 'Complete'" (click)="makeStatusComplete(goal)" class="btn btn-success"><a>Complete</a></button>       
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] === 'Complete'" disabled class="btn btn-primary"><a></a>Good Job!</button>     
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] != 'Incomplete'" (click)="makeStatusIncomplete(goal)" class="btn btn-danger"><a>Incomplete</a></button>       
+            <button *ngIf="goal['CurrentMonth'][dateInfo['dayOfMonth']-1]['Status'] === 'Incomplete'" disabled class="btn btn-danger"><a></a>Cmon bro</button>     
+        </div>
+        <div class="goalInfo">
+            <p>Description: </p>
+            <h4 class="goalDescription">{{ goal.Description }}</h4>
+            <p class="deleteLink"><a (click)="deleteGoal(goal._id)">Delete</a></p>
+        </div>
+    </div>
+</div>

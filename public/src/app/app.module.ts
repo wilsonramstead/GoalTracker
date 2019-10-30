@@ -4,18 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { MyGoalsComponent } from './my-goals/my-goals.component';
 import { HttpService } from './http.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NewGoalComponent } from './new-goal/new-goal.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { GoalPagesComponent } from './goal-pages/goal-pages.component';
+import { NewGoalComponent } from './goal-pages/new-goal/new-goal.component';
+import { MyGoalsComponent } from './goal-pages/my-goals/my-goals.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
-    MyGoalsComponent,
-    NewGoalComponent
+    GoalPagesComponent,
+    NewGoalComponent,
+    MyGoalsComponent
   ],
   imports: [
     BrowserModule,

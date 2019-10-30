@@ -1,8 +1,9 @@
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <div class="mainContainer">
   <app-calendar *ngIf="page === 'Calendar'" (navLink)="showPage($event)"></app-calendar>
-  <app-my-goals *ngIf="page === 'Goals'" (navLink)="showPage($event)"></app-my-goals>
-  <app-new-goal *ngIf="page === 'newGoal'" (navLink)="showPage($event)"></app-new-goal>
+  <app-goal-pages *ngIf="page === 'Goals'" (navLink)="showPage($event)"></app-goal-pages>
 </div>
 
 <router-outlet></router-outlet>

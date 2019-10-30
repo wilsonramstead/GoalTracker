@@ -1,0 +1,60 @@
+.goalsHeader {
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 45px;
+}
+.oneGoal {
+    height: 90px;
+    width: 50%;
+    background-color: #e2e2e2;
+    border-bottom: 2px solid black;
+    padding: 10px;
+    margin: 20px auto;
+    border-radius: 25px;
+    border: 3px solid black;
+    transition: .2s all ease-in-out;
+}
+#tempOneGoal {
+    min-height: 120px;
+}
+.oneGoal:hover {
+    cursor: pointer;
+    background-color: rgb(86, 159, 255);
+    color: white;
+    border: 3px solid white;
+    transform: scale(1.1);
+}
+.oneGoal:hover .deleteLink {
+    color: white;
+}
+.goalName {
+    width: 60%;
+    display: inline-block;
+    text-align: center;
+}
+.goalButtons {
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+}
+.goalInfo .goalDescription {
+    width: 44%;
+    text-align: left;
+    display: inline-block;
+}
+.goalInfo p {
+    display: inline-block;
+    margin-right: 10px;
+}
+.deleteLink {
+    width: 33%;
+    color: #1ea1f1;
+    text-align: right;
+    display: inline-block;
+    font-size: 18px;
+}
+.deleteLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
