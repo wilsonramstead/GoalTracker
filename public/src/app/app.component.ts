@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from './http.service';
 import * as $ from 'jquery';
 
 @Component({
@@ -7,12 +8,17 @@ import * as $ from 'jquery';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+
+  constructor(private _httpService: HttpService) {}
   page: any;
+  allGoals: any;
+  dateInfo: any;
 
   ngOnInit() {
     this.backgroundColor();
     this.page = 'Calendar';
-    console.log('test1');
+    this.getGoals();
+    this.getDateInfo();
   }
 
   showPage(string) {
@@ -28,5 +34,23 @@ export class AppComponent implements OnInit {
         $(".mainContainer").css('background', 'radial-gradient(at ' + this.mouseXpercentage + '% ' + this.mouseYpercentage + '%, white, #aaaaaa)');
       })
     })
+  }
+  getGoals() {
+    let observable = this._httpService.getGoals();
+    observable.subscribe(data => {
+        this.allGoals = data['data'];
+    })
+    return this.allGoals;
+  }
+  getDateInfo() {
+    const date = new Date();
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthString = monthNames[date.getMonth()];
+    const currentYear = date.getFullYear();
+    const monthNum = date.getMonth()+1;
+    const dayOfMonth = date.getDate();
+    const dayOfWeek = date.getDay();
+    this.dateInfo = { 'monthString': monthString, 'currentYear': currentYear, 'monthNum': monthNum, 'dayOfMonth': dayOfMonth, 'dayOfWeek': dayOfWeek };
+    return this.dateInfo;
   }
 }

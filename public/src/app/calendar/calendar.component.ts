@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../http.service'; 
 import * as $ from 'jquery';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
@@ -10,45 +10,25 @@ import { createOfflineCompileUrlResolver } from '@angular/compiler';
 })
 export class CalendarComponent implements OnInit {
   @Output() navLink = new EventEmitter<string>();
+  @Input() dateInfo: any;
+  @Input() allGoals: any;
 
   constructor(private _httpService: HttpService) { }
   weeks: any;
-  weekDays: any;
-  monthNum: any;
-  monthString: any;
-  dayOfWeek: any;
-  dayOfMonth: any;
   count: any;
-  firstGoal: any;
+  weekDays: any;
   selectMessage: any;
-  monthDays: any;
   currentGoal: any;
-  currentYear: any;
 
   ngOnInit() {
     this.weeks = [1,2,3,4]
-    this.monthNum = 0;
-    this.weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     this.count = 2;
-    this.getGoals();
-    this.getDateInfo();
-    this.firstGoal = this.allGoals[0];
     this.selectMessage = 'Select a Goal';
-    this.monthDays = [];
+    this.weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   }
 
   callParent(string) {
     this.navLink.next(string);
-  }
-
-  allGoals = [];
-  getGoals() {
-    let observable = this._httpService.getGoals();
-    observable.subscribe(data => {
-        this.allGoals = (data['data']);
-        console.log('allGoals: ', this.allGoals);
-    })
-    return this.allGoals;
   }
 
   goalSelect(id) {
@@ -56,20 +36,8 @@ export class CalendarComponent implements OnInit {
     observable.subscribe(data => {
       this.currentGoal = data['data'];
       this.selectMessage = data['data'].Name;
-      this.monthDays = data['data']['CurrentMonth'];
     })
-    return this.monthDays;
-  }
-
-  
-  getDateInfo() {
-    const date = new Date();
-    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    this.monthString = monthNames[date.getMonth()];
-    this.monthNum = date.getMonth()+1;
-    this.dayOfMonth = date.getDate();
-    this.dayOfWeek = date.getDay();
-    this.currentYear = date.getFullYear();
+    return this.currentGoal;
   }
 
   dayNums() {
@@ -84,10 +52,10 @@ export class CalendarComponent implements OnInit {
 
   checkDays(goal) {
     const dateArray = goal['UpdatedAt'].split('/');
-    if(this.monthNum != Number(dateArray[0])) {
+    if(this.dateInfo['monthNum'] != Number(dateArray[0])) {
       this.stepTwo(goal);
     } else {
-      if(this.dayOfMonth > Number(dateArray[1])) {
+      if(this.dateInfo['dayOfMonth'] > Number(dateArray[1])) {
         this.updateDays(goal);
       }
     }
@@ -97,7 +65,7 @@ export class CalendarComponent implements OnInit {
   //if last updated day is less than current day num.
   updateDays(goal) {
     const dateArray = goal['UpdatedAt'].split('/');
-    for(var i = this.dayOfMonth-2; i >= Number(dateArray[1])-2; i--) {
+    for(var i = this.dateInfo['dayOfMonth']-2; i >= Number(dateArray[1])-2; i--) {
       console.log("goal['CurrentMonth'][i]: ", goal['CurrentMonth'][i]);
       if(goal['CurrentMonth'][i]['Status'] === 'Complete' || goal['CurrentMonth'][i]['Status'] === 'Incomplete') {
         break;
@@ -105,7 +73,7 @@ export class CalendarComponent implements OnInit {
         goal['CurrentMonth'][i]['Status'] = 'Incomplete';
       }
     }
-    const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
+    const monthDayYear = (this.dateInfo['monthNum'] + '/' + this.dateInfo['dayOfMonth'] + '/' + this.dateInfo['currentYear']).toString();
     goal['UpdatedAt'] = monthDayYear;
     console.log('goal: ', goal);
     let observable = this._httpService.editGoal(goal._id, goal);
@@ -136,25 +104,25 @@ export class CalendarComponent implements OnInit {
 
   stepTwo(value) {
     var currentGoal = this.stepOne(value);
-    currentGoal['CurrentMonthName'] = this.monthString;
-    for(let i = 0; i <= this.dayOfWeek-1; i++) {
+    currentGoal['CurrentMonthName'] = this.dateInfo['monthString'];
+    for(let i = 0; i <= this.dateInfo['dayOfWeek']-1; i++) {
       this.weekDays.push(this.weekDays.shift());
     }
-    for(let i = this.dayOfMonth-1; i <= currentGoal['CurrentMonth'].length-1; i++) {
+    for(let i = this.dateInfo['dayOfMonth']-1; i <= currentGoal['CurrentMonth'].length-1; i++) {
       this.weekDays.push(this.weekDays[0]);
       currentGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays.shift();
       currentGoal['CurrentMonth'][i]['Status'] = 'Undefined';
     }
     this.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    for(let i = 0; i <= this.dayOfWeek-2; i++) {
+    for(let i = 0; i <= this.dateInfo['dayOfWeek']-2; i++) {
       this.weekDays.push(this.weekDays.shift());
     }
-    for(let i = this.dayOfMonth-2; i >= 0; i--) {
+    for(let i = this.dateInfo['dayOfMonth']-2; i >= 0; i--) {
       currentGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays[0];
       this.weekDays.unshift(this.weekDays.pop());
       currentGoal['CurrentMonth'][i]['Status'] = 'Undefined';
     }
-    const monthDayYear = (this.monthNum + '/' + this.dayOfMonth + '/' + this.currentYear).toString();
+    const monthDayYear = (this.dateInfo['monthNum'] + '/' + this.dateInfo['dayOfMonth'] + '/' + this.dateInfo['currentYear']).toString();
     currentGoal['UpdatedAt'] = monthDayYear;
     let observable = this._httpService.editGoal(currentGoal._id, currentGoal);
     observable.subscribe( data => {
