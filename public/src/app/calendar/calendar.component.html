@@ -22,9 +22,12 @@
     </div>
 
 
-    <!-- <h3 *ngIf="currentGoal != undefined">CurrentGoal: {{ currentGoal. }}</h3> -->
     <div *ngIf="currentGoal != undefined" class="month">
-        <div *ngFor="let info of currentGoal.CurrentMonth" class="day">
+        <button *ngIf="stoppingPoint === false" (click)="getPrevMonth(currentGoal._id)"><</button>
+        <button *ngIf="stoppingPoint === true" disabled><</button>
+        <button *ngIf="currentMonth != currentGoal['CurrentMonth']" (click)="getNextMonth()">></button>
+        <button *ngIf="currentMonth === currentGoal['CurrentMonth']" disabled>></button>
+        <div *ngFor="let info of currentMonth" class="day">
             <div>
                 <div *ngIf="info.Status === 'Complete'" class="one">
                     <div class="completeGoal">

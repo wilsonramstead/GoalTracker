@@ -19,16 +19,43 @@ export class CalendarComponent implements OnInit {
   weekDays: any;
   selectMessage: any;
   currentGoal: any;
+  currentMonth: any;
+  iterator: any;
+  stoppingPoint: any;
+  monthIndex: any;
+  dateArray: any;
 
   ngOnInit() {
     this.weeks = [1,2,3,4]
     this.count = 2;
     this.selectMessage = 'Select a Goal';
     this.weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    this.iterator = 0;
+    this.stoppingPoint = false;
   }
 
   callParent(string) {
     this.navLink.next(string);
+  }
+  getPrevMonth() {
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    this.iterator++;
+    if(this.currentGoal['AllMonths'][this.currentGoal.AllMonths.length-(this.iterator+1)] === undefined) {
+      this.stoppingPoint = true;
+    } 
+    this.currentMonth = this.currentGoal['AllMonths'][this.currentGoal['AllMonths'].length-this.iterator][monthNames[this.dateArray[0]-1-this.iterator]];
+    console.log("monthNames[this.dateArray[0]-1-this.iterator]: ", monthNames[this.dateArray[0]-1-this.iterator]);
+    console.log('currentMonth: ', this.currentMonth);
+  }
+  getNextMonth() {
+    this.stoppingPoint = false;
+    this.iterator--;
+    if(this.iterator === 0) {
+      this.currentMonth = this.currentGoal['CurrentMonth'];
+    } else {
+      this.currentMonth = this.currentGoal['AllMonths'][this.currentGoal.AllMonths.length-this.iterator];
+    }
+    console.log('currentMonth: ', this.currentMonth);
   }
 
   goalSelect(id) {
@@ -36,6 +63,10 @@ export class CalendarComponent implements OnInit {
     observable.subscribe(data => {
       this.currentGoal = data['data'];
       this.selectMessage = data['data'].Name;
+      this.currentMonth = data['data']['CurrentMonth'];    
+      this.dateArray = data['data']['UpdatedAt'].split('/');
+      console.log('dateArray: ', this.dateArray);
+      this.monthIndex = this.dateArray[0];
     })
     return this.currentGoal;
   }
