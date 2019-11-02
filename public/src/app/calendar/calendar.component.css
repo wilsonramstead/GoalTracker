@@ -1,71 +1,81 @@
 
 .month {
-    height: 700px;
+    min-height: 700px;
     width: 94%;
     display: inline-block;
     margin-left: 3%;
 }
 .day {
     height: 175px;
-    width: 14.2857143%;
-    background: radial-gradient(white, silver);
+    width: 13.95%;
+    background: linear-gradient(to bottom, white, rgb(231, 194, 126));
     display: inline-block;
-    border: 2px solid black;
+    border: 4px solid white;
+    border-radius: 15px;
+    margin: 2px;
     text-align: center;
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 600;
     transition: all .3s ease-in-out;
     vertical-align: top;
 }
+.goalName {
+    text-align: center;
+    font-size: 45px;
+    font-weight: bold;
+    color: white;
+}
+.day h4 {
+    font-weight: bold;
+}
 .currentDay {
-    height: 175px;
+    height: 167px;
     width: 100%;
     background: radial-gradient(white, rgb(101, 181, 255));
+    border-radius: 10px;
     transition: all .3s ease-in-out;
 }
 .completeGoal {
-    height: 175px;
+    height: 167px;
     width: 100%;
-    background: radial-gradient(white, rgb(43, 238, 60));
+    border-radius: 10px;
+    background: radial-gradient(white, rgb(9, 255, 29));
     transition: all .3s ease-in-out;
 }
 .incompleteGoal {
-    height: 175px;
+    height: 167px;
     width: 100%;
-    background: radial-gradient(white, rgb(255, 0, 0));
+    border-radius: 10px;
+    background: radial-gradient(white, rgb(255, 26, 26));
     transition: all .3s ease-in-out;
 }
 .currentDay:hover {
     background: radial-gradient(white, rgb(12, 137, 255));
     color: white;
     text-shadow: 2px 2px 4px #2e2e2e;
-    box-shadow: 4px 4px 8px black;
 }
 .completeGoal:hover {
-    background: radial-gradient(white, rgb(0, 255, 21));
+    background: radial-gradient(white, rgb(0, 221, 18));
     color: white;
     text-shadow: 2px 2px 4px #2e2e2e;
-    box-shadow: 4px 4px 8px black;
 }
 .incompleteGoal:hover {
-    background: radial-gradient(white, rgb(221, 0, 0));
+    background: radial-gradient(white, rgb(226, 23, 23));
     color: white;
     text-shadow: 2px 2px 4px #2e2e2e;
-    box-shadow: 4px 4px 8px black;
 }
+
 .day:hover {
     transform: scale(1.1);
-    background: radial-gradient(white, rgb(110, 255, 199));
+    background: radial-gradient(white, rgb(85, 219, 253));
     color: white;
     text-shadow: 2px 2px 4px black;
-    box-shadow: 4px 4px 8px black;
+    box-shadow: 6px 6px 10px rgb(0, 91, 114);
 }
 .calendarButtons {
     display: block;
     text-align: center;
 }
 .calendarButtons button {
-    /* height: 25px; */
-    /* width: 25px; */
     margin: 0px 2px;
 }

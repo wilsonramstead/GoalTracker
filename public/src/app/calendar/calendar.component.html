@@ -2,7 +2,6 @@
 <div class="mainWrapper">
     <div class="header">
         <h1>{{ dateInfo.monthString }}</h1>
-        <h3 *ngIf="selectMessage != 'Select a Goal'">{{ selectMessage }}</h3>
         <div class="buttons">
             <button (click)="callParent('Calendar')" class="btn btn-primary" disabled><a >Calendar</a></button>
             <button (click)="callParent('Goals')" class="btn btn-success"><a >My Goals</a></button>
@@ -14,23 +13,24 @@
             </div>            
         </div>
     </div>
-
+    <!-- <div style="text-align: center;"> -->
+        <h3 class="goalName" *ngIf="selectMessage != 'Select a Goal'">{{ selectMessage }}</h3>
+    <!-- </div> -->
     <div *ngIf="currentGoal === undefined" class="month">
-        <div *ngFor="let week of weeks" class="week">
+        <div *ngFor="let week of weeks"  class="week">
             <div *ngFor="let day of weekDays" id="{{week}}{{day}}" class="day"><h4>{{ day }}</h4></div>
         </div>
     </div>
 
 
     <div *ngIf="currentGoal != undefined" class="month">
-        <!-- <button (click)="test(goal)">test</button> -->
-        <div class="calendarButtons">
+        <div *ngIf="currentGoal['AllMonths'].length >= 1" class="calendarButtons">
             <button *ngIf="stoppingPoint === false" (click)="getPrevMonth(currentGoal._id)" class="btn btn-warning"><</button>
             <button *ngIf="stoppingPoint === true" disabled class="btn btn-warning"><</button>
             <button *ngIf="currentMonth != currentGoal['CurrentMonth']" (click)="getNextMonth()" class="btn btn-warning">></button>
             <button *ngIf="currentMonth === currentGoal['CurrentMonth']" disabled class="btn btn-warning">></button>
         </div>
-        <div *ngFor="let day of startingDays" class="day">
+        <div style="background: linear-gradient(to bottom, white, silver); opacity: 0.7" *ngFor="let day of startingDays" class="day">
             <h4>{{day}}</h4>
         </div>
         <div *ngFor="let info of currentMonth" class="day">
@@ -39,14 +39,14 @@
                     <div class="completeGoal">
                         <h4>{{ info.WeekDay }}</h4>
                         <h5>{{ monthIndex }}/{{ info.Day }}</h5>
-                        <h4>{{ info.Status }}</h4>
+                        <h5>{{ info.Status }}</h5>
                     </div>
                 </div>
                 <div *ngIf="info.Status === 'Incomplete'" class="two">
                     <div class="incompleteGoal">
                         <h4>{{ info.WeekDay }}</h4>
                         <h5>{{ monthIndex }}/{{ info.Day }}</h5>
-                        <h4>{{ info.Status }}</h4>
+                        <h5>{{ info.Status }}</h5>
                     </div>
                 </div>
                 <div *ngIf="info.Status === 'undefined' || info.Status === 'Undefined'" class="three">

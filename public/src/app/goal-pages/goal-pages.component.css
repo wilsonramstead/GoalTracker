@@ -19,6 +19,7 @@
     animation: animate 20s linear infinite;
     opacity: 0;
     bottom: 40px;
+    z-index: 0;
 }
 .backgroundAnimation li:nth-child(1) {
     left: 86%;

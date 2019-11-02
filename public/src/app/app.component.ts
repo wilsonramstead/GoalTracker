@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
         this.wrapperHeight = $(".mainContainer").height();
         this.mouseXpercentage = Math.round(event.pageX / this.wrapperWidth * 100);
         this.mouseYpercentage = Math.round(event.pageY / this.wrapperHeight * 100);
-        $(".mainContainer").css('background', 'radial-gradient(at ' + this.mouseXpercentage + '% ' + this.mouseYpercentage + '%, white, #aaaaaa)');
+        $(".mainContainer").css('background', 'radial-gradient(at ' + this.mouseXpercentage + '% ' + this.mouseYpercentage + '%, white, #2e2e2e)');
       })
     })
   }
