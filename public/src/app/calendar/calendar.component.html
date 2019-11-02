@@ -23,34 +23,37 @@
 
 
     <div *ngIf="currentGoal != undefined" class="month">
-        <button *ngIf="stoppingPoint === false" (click)="getPrevMonth(currentGoal._id)"><</button>
-        <button *ngIf="stoppingPoint === true" disabled><</button>
-        <button *ngIf="currentMonth != currentGoal['CurrentMonth']" (click)="getNextMonth()">></button>
-        <button *ngIf="currentMonth === currentGoal['CurrentMonth']" disabled>></button>
+        <!-- <button (click)="test(goal)">test</button> -->
+        <div class="calendarButtons">
+            <button *ngIf="stoppingPoint === false" (click)="getPrevMonth(currentGoal._id)" class="btn btn-warning"><</button>
+            <button *ngIf="stoppingPoint === true" disabled class="btn btn-warning"><</button>
+            <button *ngIf="currentMonth != currentGoal['CurrentMonth']" (click)="getNextMonth()" class="btn btn-warning">></button>
+            <button *ngIf="currentMonth === currentGoal['CurrentMonth']" disabled class="btn btn-warning">></button>
+        </div>
         <div *ngFor="let info of currentMonth" class="day">
             <div>
                 <div *ngIf="info.Status === 'Complete'" class="one">
                     <div class="completeGoal">
                         <h4>{{ info.WeekDay }}</h4>
-                        <h5>{{ dateInfo.monthNum }}/{{ info.Day }}</h5>
+                        <h5>{{ monthIndex }}/{{ info.Day }}</h5>
                         <h4>{{ info.Status }}</h4>
                     </div>
                 </div>
                 <div *ngIf="info.Status === 'Incomplete'" class="two">
                     <div class="incompleteGoal">
                         <h4>{{ info.WeekDay }}</h4>
-                        <h5>{{ dateInfo.monthNum }}/{{ info.Day }}</h5>
+                        <h5>{{ monthIndex }}/{{ info.Day }}</h5>
                         <h4>{{ info.Status }}</h4>
                     </div>
                 </div>
                 <div *ngIf="info.Status === 'undefined' || info.Status === 'Undefined'" class="three">
                     <div *ngIf="info.Day === dateInfo.dayOfMonth" class="currentDay">
                         <h4>{{ info.WeekDay }}</h4>
-                        <h5>{{ dateInfo.monthNum }}/{{ info.Day }}</h5>
+                        <h5>{{ monthIndex }}/{{ info.Day }}</h5>
                     </div>
                     <div *ngIf="info.Day != dateInfo.dayOfMonth">
                         <h4>{{ info.WeekDay }}</h4>
-                        <h5>{{ dateInfo.monthNum }}/{{ info.Day }}</h5>
+                        <h5>{{ monthIndex }}/{{ info.Day }}</h5>
                     </div>
                 </div>
             </div>

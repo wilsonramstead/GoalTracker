@@ -39,6 +39,7 @@ export class AppComponent implements OnInit {
     let observable = this._httpService.getGoals();
     observable.subscribe(data => {
         this.allGoals = data['data'];
+        console.log('allGoals: ', this.allGoals);
     })
     return this.allGoals;
   }

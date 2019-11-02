@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpService } from '../http.service'; 
 import * as $ from 'jquery';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { TestBed } from '@angular/core/testing';
 
 @Component({
   selector: 'app-calendar',
@@ -43,7 +44,9 @@ export class CalendarComponent implements OnInit {
     if(this.currentGoal['AllMonths'][this.currentGoal.AllMonths.length-(this.iterator+1)] === undefined) {
       this.stoppingPoint = true;
     } 
-    this.currentMonth = this.currentGoal['AllMonths'][this.currentGoal['AllMonths'].length-this.iterator][monthNames[this.dateArray[0]-1-this.iterator]];
+    // console.log('AllMonths: ', this.currentGoal['AllMonths'][this.currentGoal['AllMonths'].length-this.iterator]);
+    this.currentMonth = this.currentGoal['AllMonths'][this.currentGoal['AllMonths'].length-this.iterator][monthNames[this.dateArray[0] - 1 - this.iterator]];
+    this.monthIndex = this.dateArray[0]-this.iterator;
     console.log("monthNames[this.dateArray[0]-1-this.iterator]: ", monthNames[this.dateArray[0]-1-this.iterator]);
     console.log('currentMonth: ', this.currentMonth);
   }
@@ -55,6 +58,7 @@ export class CalendarComponent implements OnInit {
     } else {
       this.currentMonth = this.currentGoal['AllMonths'][this.currentGoal.AllMonths.length-this.iterator];
     }
+    this.monthIndex = this.dateArray[0]-this.iterator;
     console.log('currentMonth: ', this.currentMonth);
   }
 
@@ -136,25 +140,28 @@ export class CalendarComponent implements OnInit {
   stepTwo(value) {
     var currentGoal = this.stepOne(value);
     currentGoal['CurrentMonthName'] = this.dateInfo['monthString'];
+    var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     for(let i = 0; i <= this.dateInfo['dayOfWeek']-1; i++) {
-      this.weekDays.push(this.weekDays.shift());
+      weekDays.push(weekDays.shift());
     }
+    console.log('weekDays: ', weekDays);
     for(let i = this.dateInfo['dayOfMonth']-1; i <= currentGoal['CurrentMonth'].length-1; i++) {
-      this.weekDays.push(this.weekDays[0]);
-      currentGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays.shift();
+      weekDays.push(weekDays[0]);
+      currentGoal['CurrentMonth'][i]['WeekDay'] = weekDays.shift();
       currentGoal['CurrentMonth'][i]['Status'] = 'Undefined';
     }
-    this.weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     for(let i = 0; i <= this.dateInfo['dayOfWeek']-2; i++) {
-      this.weekDays.push(this.weekDays.shift());
+      weekDays.push(weekDays.shift());
     }
     for(let i = this.dateInfo['dayOfMonth']-2; i >= 0; i--) {
       currentGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays[0];
-      this.weekDays.unshift(this.weekDays.pop());
+      weekDays.unshift(weekDays.pop());
       currentGoal['CurrentMonth'][i]['Status'] = 'Undefined';
     }
     const monthDayYear = (this.dateInfo['monthNum'] + '/' + this.dateInfo['dayOfMonth'] + '/' + this.dateInfo['currentYear']).toString();
     currentGoal['UpdatedAt'] = monthDayYear;
+    console.log('currentGoal: ', currentGoal);
     let observable = this._httpService.editGoal(currentGoal._id, currentGoal);
     observable.subscribe( data => {
       console.log("data['data']: ", data['data']);

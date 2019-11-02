@@ -60,3 +60,12 @@
     text-shadow: 2px 2px 4px black;
     box-shadow: 4px 4px 8px black;
 }
+.calendarButtons {
+    display: block;
+    text-align: center;
+}
+.calendarButtons button {
+    /* height: 25px; */
+    /* width: 25px; */
+    margin: 0px 2px;
+}
