@@ -25,6 +25,7 @@ export class CalendarComponent implements OnInit {
   stoppingPoint: any;
   monthIndex: any;
   dateArray: any;
+  startingDays: any;
 
   ngOnInit() {
     this.weeks = [1,2,3,4]
@@ -37,6 +38,18 @@ export class CalendarComponent implements OnInit {
 
   callParent(string) {
     this.navLink.next(string);
+  }
+  getStartingDays(currentMonth) {
+    var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    this.startingDays = [];
+    for(var i = 0; i <= weekDays.length-1; i++) {
+      if(weekDays[i] === currentMonth[0]['WeekDay']) {
+        return this.startingDays;
+      } else {
+        this.startingDays.push(weekDays[i]);
+      }
+    }
+    return this.startingDays;
   }
   getPrevMonth() {
     var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -71,6 +84,7 @@ export class CalendarComponent implements OnInit {
       this.dateArray = data['data']['UpdatedAt'].split('/');
       console.log('dateArray: ', this.dateArray);
       this.monthIndex = this.dateArray[0];
+      this.getStartingDays(this.currentMonth);
     })
     return this.currentGoal;
   }

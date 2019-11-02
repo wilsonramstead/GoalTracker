@@ -30,6 +30,9 @@
             <button *ngIf="currentMonth != currentGoal['CurrentMonth']" (click)="getNextMonth()" class="btn btn-warning">></button>
             <button *ngIf="currentMonth === currentGoal['CurrentMonth']" disabled class="btn btn-warning">></button>
         </div>
+        <div *ngFor="let day of startingDays" class="day">
+            <h4>{{day}}</h4>
+        </div>
         <div *ngFor="let info of currentMonth" class="day">
             <div>
                 <div *ngIf="info.Status === 'Complete'" class="one">
