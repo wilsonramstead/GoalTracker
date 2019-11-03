@@ -4,7 +4,7 @@
         <h1>{{ dateInfo.monthString }}</h1>
         <div class="buttons">
             <button (click)="callParent('Calendar')" class="btn btn-primary" disabled><a >Calendar</a></button>
-            <button (click)="callParent('Goals')" class="btn btn-success"><a >My Goals</a></button>
+            <button (click)="callParent('Goals')" class="btn btn-primary"><a >My Goals</a></button>
         </div>
         <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
             <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">{{ selectMessage }}</button>

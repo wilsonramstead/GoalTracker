@@ -1,12 +1,14 @@
 
-<div class="newGoal">
-    <form>
-        <label>Goal Name:</label>
-        <p *ngIf="!Name.valid">Name must be at least 3 characters</p>
-        <p><input class="goalName" required minlength="3" #Name="ngModel" [(ngModel)]="newGoal.Name" name="newGoal.Name" type="text" placeholder="Gym Szzn"></p>
-        <label>Goal Description: </label>
-        <p *ngIf="!Description.valid">Name must be at least 3 characters</p>
-        <p><textarea class="goalDescription" required minlength="3" #Description="ngModel" [(ngModel)]="newGoal.Description" name="newGoal.Description" cols="40" rows="3" type="text" placeholder="Gym everyday..."></textarea></p>
-        <input class="btn btn-success" type="submit" (click)="createGoal()" value="Create">
-    </form>
+<div class="wrapper">
+    <div class="newGoal">
+        <form>
+            <label>Goal Name:</label>
+            <p *ngIf="!Name.valid">Name must be at least 3 characters</p>
+            <p><input class="goalName" required minlength="3" #Name="ngModel" [(ngModel)]="newGoal.Name" name="newGoal.Name" type="text" placeholder="Gym Szzn"></p>
+            <label>Goal Description: </label>
+            <p *ngIf="!Description.valid">Name must be at least 3 characters</p>
+            <p><textarea class="goalDescription" required minlength="3" #Description="ngModel" [(ngModel)]="newGoal.Description" name="newGoal.Description" cols="40" rows="3" type="text" placeholder="Gym everyday..."></textarea></p>
+            <input class="btn btn-success" type="submit" (click)="createGoal()" value="Create">
+        </form>
+    </div>
 </div>

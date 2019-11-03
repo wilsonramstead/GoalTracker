@@ -7,7 +7,8 @@ import { HttpService } from '../../http.service';
   styleUrls: ['./my-goals.component.css']
 })
 export class MyGoalsComponent implements OnInit {
-  @Output() getGoals = new EventEmitter();
+  @Output() getGoals = new EventEmitter<string>();
+  @Output() changePage = new EventEmitter();
   @Input() allGoals: any;
   @Input() dateInfo: any;
 
@@ -18,6 +19,10 @@ export class MyGoalsComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  // callParent() {
+  //   this.changePage.next('NewEvent');
+  // }
 
   getGoalInfo(id) {
     if(this.showFullGoal != id) {

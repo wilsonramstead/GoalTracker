@@ -17,7 +17,7 @@ import { MyGoalsComponent } from './goal-pages/my-goals/my-goals.component';
     CalendarComponent,
     GoalPagesComponent,
     NewGoalComponent,
-    MyGoalsComponent
+    MyGoalsComponent,
   ],
   imports: [
     BrowserModule,

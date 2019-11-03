@@ -21,9 +21,10 @@
 }
 .goalName {
     text-align: center;
-    font-size: 45px;
+    font-size: 50px;
     font-weight: bold;
     color: white;
+    font-family: 'Courgette', cursive;
 }
 .day h4 {
     font-weight: bold;
