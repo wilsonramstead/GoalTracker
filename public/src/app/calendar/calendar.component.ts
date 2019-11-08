@@ -169,7 +169,7 @@ export class CalendarComponent implements OnInit {
       weekDays.push(weekDays.shift());
     }
     for(let i = this.dateInfo['dayOfMonth']-2; i >= 0; i--) {
-      currentGoal['CurrentMonth'][i]['WeekDay'] = this.weekDays[0];
+      currentGoal['CurrentMonth'][i]['WeekDay'] = weekDays[0];
       weekDays.unshift(weekDays.pop());
       currentGoal['CurrentMonth'][i]['Status'] = 'Undefined';
     }

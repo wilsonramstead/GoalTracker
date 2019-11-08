@@ -8,6 +8,7 @@ import { HttpService } from '../../http.service';
 })
 export class NewGoalComponent implements OnInit {
   @Output() getGoals = new EventEmitter();
+  @Output() changePage = new EventEmitter<string>();
   @Input() allGoals: any;
   @Input() dateInfo: any;
 
@@ -46,5 +47,6 @@ export class NewGoalComponent implements OnInit {
       console.log("Data: ", data);
     })
     this.getGoals.emit();
+    this.changePage.next('MyGoals');
   }
 }

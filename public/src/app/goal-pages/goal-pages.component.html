@@ -9,7 +9,7 @@
         </div>
     </div>
     <app-my-goals *ngIf="page === 'MyGoals'" (getGoals)="getGoalsFromParent()" (changePage)="callSelf($event)" [dateInfo]="dateInfo" [allGoals]="allGoals"></app-my-goals>
-    <app-new-goal *ngIf="page =='NewGoal'" (getGoals)="getGoalsFromParent()" [dateInfo]="dateInfo" [allGoals]="allGoals"></app-new-goal>
+    <app-new-goal *ngIf="page =='NewGoal'" (getGoals)="getGoalsFromParent()" (changePage)="callSelf($event)" [dateInfo]="dateInfo" [allGoals]="allGoals"></app-new-goal>
     <ul class="backgroundAnimation">
         <li></li>
         <li></li>
