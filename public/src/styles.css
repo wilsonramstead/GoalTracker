@@ -7,11 +7,11 @@
 .mainWrapper {
     height: 90vh;
     width: 90%;
-    background-color: #2e2e2e;
     border-radius: 20px;
     margin: auto;
     overflow: auto;
     padding-bottom: 80px;
+    background: linear-gradient(to top, transparent, #2544f3 100%),white repeating-linear-gradient(0deg, transparent, transparent 50px);
 }
 .header {
     min-height: 100px;
@@ -19,7 +19,7 @@
     background-color: #e2e2e2;
     border-radius: 20px 20px 0px 0px;
     text-align: center;
-    border: 5px solid #007bfe;
+    border: 5px solid white;
     margin-bottom: 20px;
     position: sticky;
     top: 0;
