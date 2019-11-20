@@ -1,7 +1,8 @@
 
 <div class="myGoalsWrapper">
     <div class="header">
-        <h1>My Goals</h1>
+        <h1 *ngIf="page === 'MyGoals'">My Goals</h1>
+        <h1 *ngIf="page === 'NewGoal'">New Goal</h1>
         <div class="buttons">
             <button (click)="callParent('Calendar')" class="btn btn-primary"><a>Calendar</a></button>
             <button *ngIf="page === 'MyGoals'" (click)="callSelf('NewGoal')" class="btn btn-primary"><a>New Goal</a></button>
